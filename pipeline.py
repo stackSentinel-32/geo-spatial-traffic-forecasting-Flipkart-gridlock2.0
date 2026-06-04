@@ -34,7 +34,7 @@ def fit_historical_lookups(train_df):
     geo4_lookup = day48_source.groupby(['geohash_4', 'timestamp'])['demand'].mean().reset_index()
     geo4_lookup.rename(columns={'demand': 'lag_demand_geo4_day48'}, inplace=True)
     
-    # 4. Long-term static spatial baseline
+    # 4. Long-term static baseline
     geohash_mean_lookup = day48_source.groupby('geohash')['demand'].mean().reset_index()
     geohash_mean_lookup.rename(columns={'demand': 'geohash_overall_mean'}, inplace=True)
     
@@ -62,13 +62,13 @@ def apply_historical_lookups(df, lookups):
     df = df.merge(lookups['geo4_lookup'], on=['geohash_4', 'timestamp'], how='left')
     df = df.merge(lookups['geohash_mean_lookup'], on='geohash', how='left')
     
-    # Cascade back-fills
+    # Cascade back-fills using neighborhood matrix parameters
     df['geohash_overall_mean'] = df['geohash_overall_mean'].fillna(lookups['global_demand_mean'])
     df['lag_demand_day48'] = df['lag_demand_day48'].fillna(df['geohash_overall_mean'])
     df['lag_demand_geo5_day48'] = df['lag_demand_geo5_day48'].fillna(df['lag_demand_day48'])
     df['lag_demand_geo4_day48'] = df['lag_demand_geo4_day48'].fillna(df['lag_demand_geo5_day48'])
     
-    # Temperature Imputation
+    # Temperature profile interpolation
     df['Temperature'] = df['Temperature'].fillna(df['time_of_day_minutes'].map(lookups['train_temp_medians']))
     df['Temperature'] = df['Temperature'].fillna(lookups['global_temp_median'])
     
