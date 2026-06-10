@@ -676,9 +676,7 @@ def run_pipeline():
         print(f"  {name:<28} {r:>10.5f} {r2:>8.4f}")
     print(f"  {'-'*50}")
     print()
-    print(f"  v1 baseline  : RMSE=0.03204  R2=0.9492  Score~91.1")
-    print(f"  v2 stack     : RMSE=0.03012  R2=0.9551  Score~91.1")
-    print(f"  v3 target    :                           Score~93-94")
+
     improvement_v1 = (0.03204 - blend_r) / 0.03204 * 100
     improvement_v2 = (0.03012 - blend_r) / 0.03012 * 100
     print(f"  v3 OOF RMSE  : {blend_r:.5f}  ({improvement_v1:+.1f}% vs v1, {improvement_v2:+.1f}% vs v2)")
@@ -687,6 +685,6 @@ def run_pipeline():
     print(f"  Prediction mean : {final_preds.mean():.4f}")
     print(f"  Submission file : {config.SUBMISSION_PATH} ({len(submission)} rows)")
     print(f"  Total time      : {total_time/60:.1f} minutes")
-    print("=" * 65)
-    print("  v3 ULTRA Pipeline complete!")
-    print("=" * 65)
+    print("-" * 65)
+    print("  FLIPKART GRIDLOCK-2.0 Pipeline complete!")
+    print("-" * 65)
