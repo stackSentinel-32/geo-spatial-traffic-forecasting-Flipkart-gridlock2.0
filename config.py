@@ -3,7 +3,7 @@
 # Paths
 TRAIN_PATH = 'dataset/train.csv'
 TEST_PATH = 'dataset/test.csv'
-SUBMISSION_PATH = 'submit/sample_submission_v3.csv'
+SUBMISSION_PATH = 'submit/sample_submission_flipkart.csv'
 
 # Tuning and validation settings
 OPTUNA_LGB_TRIALS = 50
